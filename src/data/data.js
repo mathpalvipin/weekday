@@ -1,0 +1,7 @@
+export const location  =['delhi ncr', 'mumbai', 'chennai', 'bangalore']
+export const stack =['React','Node','Vue','Laravel']
+export const role =['tech lead','frontend', 'ios', 'android', 'backend']
+export const MinExperience= ['0-1','1-2','2-4','4-6','6-8','8-10','10-80']
+export const CompanyName= ['Apple','google','microsoft']
+export const mode= ['remote',"WFO","Hybrid"]
+export const minpay =['0-20','20-50','50-80','80-100','100-1000']
