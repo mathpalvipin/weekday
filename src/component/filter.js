@@ -4,35 +4,8 @@ import axios from "axios";
 import {location, stack ,MinExperience ,CompanyName,mode,minpay,role} from '../data/data.js'
 import MultipleSelect from "./MultipleSelect";
 import { useEffect, useState } from "react";
-const Filter = () => {
-  const [filter, setFilter] = useState({
-    MinExperience: "",
-    CompanyName: "",
-    Location: "",
-    Stack: "",
-    mode:"",
-    Role: "",
-    Minpay: "",
-  });
-  useEffect(() => {
-    const jsonData = {
-      limit: 1000,
-
-      offset: 0,
-    };
-    axios
-      .post("https://api.weekday.technology/adhoc/getSampleJdJSON", jsonData)
-      .then((response) => {
-    //  console.log(response.data.jdList[0]);
-    //     let set1 = new Set();
-    //     response.data.jdList.forEach((element) => {
-    //         set1.add(element.minExp);
-    //     });
-    //     console.log(set1);
-      });
-      console.log(filter);
-    
-  }, [filter]);
+const Filter = ({filter, setFilter}) => {
+ 
   return (
     <Container
       maxWidth="xl"

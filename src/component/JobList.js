@@ -3,9 +3,22 @@ import { lightBlue } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Button from '@mui/material/Button'
-const jobs = [1, 2, 3, 4, 5, 6, 7];
-const JobList = () => {
+import Button from "@mui/material/Button";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+
+const JobList = ({ totallist, joblist, loadjob, isloading }) => {
+  const { ref, inView } = useInView();
+  
+  useEffect(() => {
+    // console.log( isFetchingNextPage+ "fetching  next page ....." );
+    // console.log(inView);
+    
+   if(totallist>700) return ;
+    if (inView&&!isloading) {
+      loadjob(totallist);
+    }
+  }, [inView, loadjob]);
   return (
     <Container
       maxWidth="xl"
@@ -18,7 +31,7 @@ const JobList = () => {
         justifyContent: "space-between",
       }}
     >
-      {jobs.map((job) => (
+      {joblist.map((job) => (
         <Paper
           elevation={4}
           square={false}
@@ -69,7 +82,7 @@ const JobList = () => {
                 display: "flex",
                 flexDirection: "column",
                 textAlign: "left",
-                width:"80%"
+                width: "80%",
               }}
             >
               {" "}
@@ -87,10 +100,9 @@ const JobList = () => {
                 sx={{
                   margin: "1px 0px",
                   padding: "1px 3px",
-                  
                 }}
               >
-                This is a div styled 
+                {job.jobRole}
               </Box>
               <Box
                 component="div"
@@ -99,7 +111,7 @@ const JobList = () => {
                   padding: "1px 3px",
                 }}
               >
-                Location
+                {job.location}
               </Box>
             </Box>
           </Box>
@@ -116,7 +128,9 @@ const JobList = () => {
               justifyContent: "left",
             }}
           >
-            Estimated Salary: 100USD
+            Estimated Salary: {job.minJdSalary ? job.minJdSalary : 0}-
+            {job.maxJdSalary}
+            {job.salaryCurrencyCode}
           </Box>
           <Box
             sx={{
@@ -150,17 +164,7 @@ const JobList = () => {
                 position: "relative",
               }}
             >
-              Zuma makes an automated sales agent that converses with 100% of
-              inbound leads, ultimately improving the way consumers interact
-              with businesses and organizations. We’ve built this from the
-              ground up using AI, ML, and human support which helps increase
-              sales conversion and support capacity for businesses of all kinds.
-              Zuma is one of the fastest-growing startups in San Francisco, and
-              is well-funded and backed by world-class investors such as
-              Y-Combinator, Joe Montana’s fund (Liquid 2 Ventures), Day One
-              Ventures, Soma Capital, and other notable angel investors
-              including Austen Allred (from Lambda School), YC’s ex-COO Qasar
-              Younis, among others. Company
+              {job.jobDetailsFromCompany}
             </Box>
             <Box
               component="div"
@@ -208,29 +212,33 @@ const JobList = () => {
                 height: "auto",
               }}
             >
-              1year
+              {job.minExp ? job.minExp : 0}-{job.maxExp ? job.maxExp : 0} year
             </Box>
           </Box>
           <Button
             variant="contained"
-
             sx={{
               width: "95%",
               backgroundColor: "rgb(85, 239, 196)",
               color: "rgb(0, 0, 0)",
               fontWeight: "500",
-              height:'6%',
+              height: "6%",
               padding: "8px 18px",
-             mx:"5px",
-              position:'absolute',
-              bottom:"3%",
-              left:'3px'
+              mx: "5px",
+              position: "absolute",
+              bottom: "3%",
+              left: "3px",
             }}
           >
-           ⚡ Easy Apply
+            ⚡ Easy Apply
           </Button>
         </Paper>
       ))}
+      
+        <div ref={ref}>
+          <button disabled>"Loading more..."</button>
+        </div>
+
     </Container>
   );
 };
