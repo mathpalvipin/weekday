@@ -1,7 +1,7 @@
 import Filter from "../component/Filter.js";
 import { Container } from "@mui/material";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useMemo } from "react";
 import JobList from "../component/JobList.js";
 
 const Home = () => {
@@ -15,9 +15,9 @@ const Home = () => {
     Minpay: [],
   });
   const [isloading, setisloading] = useState(true);
-
   const [joblist, setJobList] = useState([]);
-  const [filteredjoblist, setFilteredJobList] = useState([]);
+  // const [filteredjoblist, setFilteredJobList] = useState([]);
+  
   const loadjob = async (skip) => {
     setisloading(true);
     const jsonData = {
@@ -46,7 +46,7 @@ const Home = () => {
       });
 
     setisloading(false);
-    filterjob(joblist, filter);
+ 
   };
   const filterjob = (joblist, filter) => {
     const { Stack, mode, ...actualfilter } = filter;
@@ -67,7 +67,7 @@ const Home = () => {
         c = CompanyName.includes(job.companyName);
       }
       if (MaxExperience.length > 0) {
-        var ans = false;
+        let ans = false;
         for (const i in MaxExperience) {
           const Experience = MaxExperience[i].split("-");
 
@@ -78,7 +78,7 @@ const Home = () => {
         m = ans;
       }
       if (Minpay.length > 0) {
-        var ans = false;
+         let ans = false;
         for (const i in Minpay) {
           const pay = Minpay[i].split("-");
           if (pay[0] <= job.minJdSalary) {
@@ -93,14 +93,13 @@ const Home = () => {
       // if(l&&m&&min&&r&&c)console.log(job.companyName);
       return l && m && min && r && c;
     });
-  setFilteredJobList(filteredjoblist);
+  return filteredjoblist;
   };
   useEffect(() => {
     loadjob(0);
   }, []);
-  useEffect(() => {
-    filterjob(joblist, filter);
-  }, [filter]);
+  const filteredjoblist=useMemo(() =>  filterjob(joblist, filter), [joblist, filter]);
+
   return (
     <Container maxWidth="xl" sx={{ p: 0 }}>
       <Filter filter={filter} setFilter={setFilter}></Filter>

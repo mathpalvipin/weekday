@@ -244,7 +244,7 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
 
       {!stoploading && (
         <div ref={ref}>
-          <Box sx={{width:"100vw",alignContent:'center'}}>Loading more...</Box>
+          <Box sx={{width:"90vw",alignContent:'center'}}>Loading more...</Box>
         </div>
       )}
       {joblist.length === 0 && stoploading && <Box sx={{width:"100vw",alignContent:'center'}}>NO such Job available </Box>}
