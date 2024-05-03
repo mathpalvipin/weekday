@@ -1,5 +1,4 @@
 import { Container } from "@mui/material";
-import { lightBlue } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -18,7 +17,7 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
     if (inView && !isloading) {
       loadjob(totallist);
     }
-  }, [inView, loadjob]);
+  }, [inView, loadjob,isloading,totallist]);
   return (
     <Container
       maxWidth="xl"
