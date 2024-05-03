@@ -1,3 +1,14 @@
+# Live project 
+link:https://mathpalvipin.github.io/weekday/
+
+# Step to run on Local 
+```
+git clone https://github.com/mathpalvipin/weekday.git
+cd weekday
+npm install
+npm run start
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
