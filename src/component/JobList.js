@@ -5,13 +5,16 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const JobList = ({ totallist, joblist, loadjob, isloading }) => {
   const { ref, inView } = useInView();
-
+  const [stoploading, setstoploading] = useState(false);
   useEffect(() => {
-    if (totallist > 700) return;
+    if (totallist > 900) {
+      setstoploading(true);
+      return;
+    }
     if (inView && !isloading) {
       loadjob(totallist);
     }
@@ -51,7 +54,7 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
               borderRadius: "70px",
               position: "absolute",
               top: "1%",
-              width: "35%",
+              width: "45%",
               left: "1px",
               fontSize: "8px",
               mx: 1,
@@ -239,9 +242,12 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
         </Paper>
       ))}
 
-      <div ref={ref}>
-        <button disabled>"Loading more..."</button>
-      </div>
+      {!stoploading && (
+        <div ref={ref}>
+          <Box sx={{width:"100vw",alignContent:'center'}}>Loading more...</Box>
+        </div>
+      )}
+      {joblist.length === 0 && stoploading && <Box sx={{width:"100vw",alignContent:'center'}}>NO such Job available </Box>}
     </Container>
   );
 };

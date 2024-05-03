@@ -14,7 +14,7 @@ const Home = () => {
     Role: [],
     Minpay: [],
   });
-  const [isloading, setisloading] = useState(filter);
+  const [isloading, setisloading] = useState(true);
 
   const [joblist, setJobList] = useState([]);
   const [filteredjoblist, setFilteredJobList] = useState([]);

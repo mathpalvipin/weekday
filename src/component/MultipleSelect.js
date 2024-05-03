@@ -44,7 +44,7 @@ export default function MultipleSelect({filterName,setFilter,filter,options}) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: {xs:100 ,md:250 ,lg:300} }}>
+      <FormControl sx={{ m: 1, width: {xs:100 ,md:200 ,lg:250} }}>
         <InputLabel id={filterName}>{filterName}</InputLabel>
         <Select
           labelId={filterName}
@@ -55,6 +55,7 @@ export default function MultipleSelect({filterName,setFilter,filter,options}) {
           onChange={handleChange}
           input={<OutlinedInput label={filterName} />}
           MenuProps={MenuProps}
+            
         >
           {options.map((name) => (
             <MenuItem
