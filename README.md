@@ -8,6 +8,12 @@ cd weekday
 npm install
 npm run start
 ```
+## Evaluation Criteria
+Functionality: Infinite scroll work and Job displayed according to filter selected
+Code Quality: Code is maintable and reusable. Every thing build using component.
+User Interface: UI as almost same as the give example
+Responsiveness: Web app is responsive for all screen size
+Performance: Used useMemo react hook to increase filter performance.
 
 # Getting Started with Create React App
 
