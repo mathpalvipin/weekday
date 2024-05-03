@@ -4,9 +4,10 @@ import { Container } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect, useSyncExternalStore, act } from "react";
 import JobList from "../component/JobList.js";
+import { CompanyName } from "../data/data.js";
 const Home = () => {
   const [filter, setFilter] = useState({
-    MinExperience: [],
+    MaxExperience: [],
     CompanyName: [],
     Location: [],
     Stack: [],
@@ -23,59 +24,94 @@ const Home = () => {
     setisloading(true);
     console.log(skip);
     const jsonData = {
-      limit: 5,
+      limit: 10,
       offset: skip,
     };
-    if(skip>1000){ setisloading(false); return ;}
+    if (skip > 1000) {
+      setisloading(false);
+      return;
+    }
     await axios
       .post("https://api.weekday.technology/adhoc/getSampleJdJSON", jsonData)
       .then((response) => {
         console.log(response.data.jdList[0]);
         const jobs = [];
+        // let set = new Set();
         response.data.jdList.forEach((element) => {
+          // set.add(element.companyName)
           jobs.push(element);
         });
-        console.log(jobs);
+        //   var ans=""
+        //   for (const value of set) {
+        //    ans+="'"+value+"',";
+        // }
+        // console.log(ans)
         setJobList((prev) => [...prev, ...jobs]);
       });
-   
+
     setisloading(false);
-   filterjob(joblist,filter);
+    filterjob(joblist, filter);
   };
-const  filterjob=(joblist,filter)=>{
-    const {CompanyName,Stack,mode,...actualfilter}=filter
+  const filterjob = (joblist, filter) => {
+    const { Stack, mode, ...actualfilter } = filter;
     console.log(filter);
-    actualfilter.Location=[...actualfilter.Location];
-     
-    const filteredjoblist=joblist.filter((job)=>{
-      // console.log(job);
-     const { Location ,MinExperience,Minpay,Role}=actualfilter;
-     var l=true,m=true,min=true,r=true;
-      if(Location.length>0){
-      l= Location.includes(job.location);
+    actualfilter.Location = [...actualfilter.Location];
+
+    const filteredjoblist = joblist.filter((job) => {
+       
+      const { CompanyName,Location, MaxExperience, Minpay, Role } = actualfilter;
+      var l = true,
+        m = true,
+        min = true,
+        r = true,
+        c = true;
+
+      if (Location.length > 0) {
+        l = Location.includes(job.location);
       }
-      if(MinExperience.length>0){
-       m= MinExperience.includes(job.minExp);
+      if (CompanyName.length > 0) {
+      
+        c = CompanyName.includes(job.companyName);
       }
-      if(Minpay.length>0){
-       min= Minpay.includes(job.minJdSalary);
+      if (MaxExperience.length > 0) {
+       
+        var ans = false;
+        for (const i in MaxExperience) {
+          const Experience = MaxExperience[i].split("-");
+            
+          if (Experience[1] >= job.minExp) {
+            ans = true;
+          }
+        }
+        m = ans;
       }
-      if(Role.length>0){
-       r= Role.includes(job.jobRole);
+      if (Minpay.length > 0) {
+        var ans = false;
+        for (const i in Minpay) {
+          const pay = Minpay[i].split("-");
+          // console.log(Experience);
+          if (pay[0] <= job.minJdSalary) {
+            ans = true;
+          }
+        }
+        min = ans;
+        
       }
-      if(l&&m&&min&&r)console.log(job);
-      return l&&m&&min&&r;
-    })
-    console.log(filteredjoblist);
- setFilteredJobList(filteredjoblist);
-}
+      if (Role.length > 0) {
+        r = Role.includes(job.jobRole);
+      }
+      // if(l&&m&&min&&r&&c)console.log(job.companyName);
+      return l && m && min && r && c;
+    });
+    // console.log(filteredjoblist);
+    setFilteredJobList(filteredjoblist);
+  };
   useEffect(() => {
-      loadjob(0);
-      // setFilteredJobList(joblist);
+    loadjob(0);
+    // setFilteredJobList(joblist);
   }, []);
   useEffect(() => {
-     filterjob(joblist,filter);
-
+    filterjob(joblist, filter);
   }, [filter]);
   return (
     <Container maxWidth="xl" sx={{ p: 0 }}>

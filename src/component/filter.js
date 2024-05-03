@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { Input } from "@mui/material";
 import axios from "axios";
-import {location, stack ,MinExperience ,CompanyName,mode,minpay,role} from '../data/data.js'
+import {location, stack ,MaxExperience ,CompanyName,mode,minpay,role} from '../data/data.js'
 import MultipleSelect from "./MultipleSelect";
 import { useEffect, useState } from "react";
 const Filter = ({filter, setFilter}) => {
@@ -19,8 +19,8 @@ const Filter = ({filter, setFilter}) => {
       <MultipleSelect
         setFilter={setFilter}
         filter={filter}
-        filterName="MinExperience"
-        options={MinExperience}
+        filterName="MaxExperience"
+        options={MaxExperience}
       ></MultipleSelect>
       <MultipleSelect
         setFilter={setFilter}
@@ -59,7 +59,7 @@ const Filter = ({filter, setFilter}) => {
         options={minpay}
       ></MultipleSelect>
 
-      {/* <Input name="MinExperience" placeholder="MinExperience"  sx={{Width:"auto" ,border:"1px  solid grey" , px:"2px", boxShadow:"2px grey"}}></Input>
+      {/* <Input name="MaxExperience" placeholder="MaxExperience"  sx={{Width:"auto" ,border:"1px  solid grey" , px:"2px", boxShadow:"2px grey"}}></Input>
       <Input name="CompanyName" placeholder="CompanyName" sx={{minWidth:"200px"}}></Input>
       <Input name="Location" placeholder="Location"></Input>
       <Input name="mode" placeholder="Mode"></Input>

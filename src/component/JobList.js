@@ -75,7 +75,7 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
               justifyContent: "center",
             }}
           >
-            <img style={{ width: "30px", height: "40px" }} alt="logo"></img>
+            <img style={{ width: "30px", height: "40px" , borderRadius:"50%" }} alt="logo" src={job.logoUrl}></img>
             <Box
               component="div"
               sx={{
@@ -91,9 +91,12 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
                 sx={{
                   margin: "1px 0px",
                   padding: "1px 3px",
+                  fontSize:"15px",
+                  color:'grey',
+                  fontWeight:'800'
                 }}
               >
-                CompanyName
+               {job.companyName}
               </Box>
               <Box
                 component="div"
