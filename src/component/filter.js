@@ -1,11 +1,17 @@
 import { Container } from "@mui/material";
-import { Input } from "@mui/material";
-import axios from "axios";
-import {location, stack ,MaxExperience ,CompanyName,mode,minpay,role} from '../data/data.js'
+
+import {
+  location,
+  stack,
+  MaxExperience,
+  CompanyName,
+  mode,
+  minpay,
+  role,
+} from "../data/data.js";
 import MultipleSelect from "./MultipleSelect";
-import { useEffect, useState } from "react";
-const Filter = ({filter, setFilter}) => {
- 
+
+const Filter = ({ filter, setFilter }) => {
   return (
     <Container
       maxWidth="xl"
@@ -26,7 +32,7 @@ const Filter = ({filter, setFilter}) => {
         setFilter={setFilter}
         filter={filter}
         filterName="CompanyName"
-        options ={CompanyName}
+        options={CompanyName}
       ></MultipleSelect>
       <MultipleSelect
         setFilter={setFilter}
@@ -34,7 +40,7 @@ const Filter = ({filter, setFilter}) => {
         filterName="Location"
         options={location}
       ></MultipleSelect>
-       <MultipleSelect
+      <MultipleSelect
         setFilter={setFilter}
         filter={filter}
         filterName="mode"
@@ -58,14 +64,6 @@ const Filter = ({filter, setFilter}) => {
         filterName="Minpay"
         options={minpay}
       ></MultipleSelect>
-
-      {/* <Input name="MaxExperience" placeholder="MaxExperience"  sx={{Width:"auto" ,border:"1px  solid grey" , px:"2px", boxShadow:"2px grey"}}></Input>
-      <Input name="CompanyName" placeholder="CompanyName" sx={{minWidth:"200px"}}></Input>
-      <Input name="Location" placeholder="Location"></Input>
-      <Input name="mode" placeholder="Mode"></Input>
-      <Input name="Stack" placeholder="Stack"></Input>
-      <Input name="Role" placeholder="Role"></Input>
-      <Input name="Minpay" placeholder="Minpay"></Input> */}
     </Container>
   );
 };

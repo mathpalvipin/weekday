@@ -9,13 +9,10 @@ import { useEffect } from "react";
 
 const JobList = ({ totallist, joblist, loadjob, isloading }) => {
   const { ref, inView } = useInView();
-  
+
   useEffect(() => {
-    // console.log( isFetchingNextPage+ "fetching  next page ....." );
-    // console.log(inView);
-    
-   if(totallist>700) return ;
-    if (inView&&!isloading) {
+    if (totallist > 700) return;
+    if (inView && !isloading) {
       loadjob(totallist);
     }
   }, [inView, loadjob]);
@@ -75,7 +72,11 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
               justifyContent: "center",
             }}
           >
-            <img style={{ width: "30px", height: "40px" , borderRadius:"50%" }} alt="logo" src={job.logoUrl}></img>
+            <img
+              style={{ width: "30px", height: "40px", borderRadius: "50%" }}
+              alt="logo"
+              src={job.logoUrl}
+            ></img>
             <Box
               component="div"
               sx={{
@@ -91,12 +92,12 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
                 sx={{
                   margin: "1px 0px",
                   padding: "1px 3px",
-                  fontSize:"15px",
-                  color:'grey',
-                  fontWeight:'800'
+                  fontSize: "15px",
+                  color: "grey",
+                  fontWeight: "800",
                 }}
               >
-               {job.companyName}
+                {job.companyName}
               </Box>
               <Box
                 component="div"
@@ -237,11 +238,10 @@ const JobList = ({ totallist, joblist, loadjob, isloading }) => {
           </Button>
         </Paper>
       ))}
-      
-        <div ref={ref}>
-          <button disabled>"Loading more..."</button>
-        </div>
 
+      <div ref={ref}>
+        <button disabled>"Loading more..."</button>
+      </div>
     </Container>
   );
 };
